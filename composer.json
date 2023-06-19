@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=7.4.0",
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "*",
+        "tpay-com/tpay-php": "*"
     },
     "license": "BSD-3-Clause",
     "autoload": {
