@@ -1,0 +1,13 @@
+/vendor/
+
+# composer itself is not needed
+composer.phar
+composer.lock
+
+# cache directories
+Thumbs.db
+*.DS_Store
+*.empty
+
+#phpstorm project files
+.idea

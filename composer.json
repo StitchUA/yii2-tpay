@@ -1,0 +1,36 @@
+{
+    "name": "stitchua/yii2-tpay",
+    "description": "It is a module for basic implementation of payment system of tpay.com",
+    "type": "yii2-extension",
+    "keywords": [
+        "stitchua",
+        "yii2",
+        "extension",
+        "yii2-tpay",
+        "payment",
+        "yii2 tpay",
+        "tpay",
+        "payment system tpay"
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "license": "BSD-3-Clause",
+    "autoload": {
+        "psr-4": {
+            "stitchua\\tpay\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oleksandr Borodaichuk",
+            "email": "alexandr.borodaichuk@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    }
+}
