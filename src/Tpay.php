@@ -10,7 +10,10 @@ class Tpay extends \yii\base\Module
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'app\modules\tpay\controllers';
+    public $controllerNamespace = 'stitchua\tpay\controllers';
+
+    /** @var string|null  ID klienta z panelu Tpay*/
+    public $merchantId = null;
 
     /**
      * {@inheritdoc}
