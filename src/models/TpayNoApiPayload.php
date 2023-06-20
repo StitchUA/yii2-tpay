@@ -37,6 +37,7 @@ use Yii;
 class TpayNoApiPayload extends \yii\db\ActiveRecord
 {
 
+    public $crcData = [];
     protected $module;
     public function __construct(Tpay $module, ?ILinkPayload $payload, $config = [])
     {
@@ -67,6 +68,7 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
             $this->accept_tos = $payload->getAcceptTos();
             $this->expiration_date = $payload->getExpirationDate();
             $this->timehash = $payload->getTimehash();
+            $this->crcData = $payload->getCrcData();
         }
         parent::__construct($config);
     }

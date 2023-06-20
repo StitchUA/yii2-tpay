@@ -64,7 +64,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
         }
 
         if($payload->save()){
-            $crcData = $payload->getcrcData();
+            $crcData = $payload->getCrcData();
             if(empty($payload->crc) && !empty($crcData)) {
                 $crcData[] = (float)$payload->amount;
                 $crcData[] = $payload->fld_id;
