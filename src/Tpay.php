@@ -31,5 +31,6 @@ class Tpay extends \yii\base\Module
             throw new InvalidConfigException('Zła konfiguracja modułu: '.$this->id);
         }
         Util::$customLogPatch = dirname(__FILE__).DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
+        Util::$loggingEnabled = false;
     }
 }
