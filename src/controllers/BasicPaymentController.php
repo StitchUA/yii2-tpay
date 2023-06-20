@@ -3,6 +3,7 @@
 namespace stitchua\tpay\controllers;
 
 use stitchua\tpay\components\basics\BasicNotificationHandler;
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -16,7 +17,8 @@ class BasicPaymentController extends Controller
      */
     public function actionIpn()
     {
-        $notification = (new BasicNotificationHandler())->getTpayNotification();
+        $module = Yii::$app->getModule('tpay');
+        $notification = (new BasicNotificationHandler($module))->getTpayNotification();
         $payloadCrc = $notification['tr_crc'];
 
         return $this->render('index');
