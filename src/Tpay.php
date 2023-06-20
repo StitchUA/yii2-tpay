@@ -2,6 +2,8 @@
 
 namespace stitchua\tpay;
 
+use yii\base\InvalidConfigException;
+
 /**
  * tpay module definition class
  */
@@ -14,6 +16,8 @@ class Tpay extends \yii\base\Module
 
     /** @var string|null  ID klienta z panelu Tpay*/
     public $merchantId = null;
+    public $merchantCode = null;
+    public $tpayTransactionCrcSalt = 'zsdfasdf78asf6asd8f87';
 
     /**
      * {@inheritdoc}
@@ -22,6 +26,8 @@ class Tpay extends \yii\base\Module
     {
         parent::init();
 
-        // custom initialization code goes here
+        if(empty($this->merchantId) || empty($this->merchantCode)){
+            throw new InvalidConfigException('Zła konfiguracja modułu: '.$this->id);
+        }
     }
 }
