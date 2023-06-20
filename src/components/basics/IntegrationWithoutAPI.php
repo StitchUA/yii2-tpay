@@ -82,7 +82,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
                 $this->module->merchantCode
             ]));
             $payload->updateAttributes(['crc', 'md5sum']);
-            $link = $this->panelURL . DIRECTORY_SEPARATOR . http_build_query(array_filter($payload->attributes,
+            $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payload->attributes,
                         function ($val){
                             return !empty($val);
                         }

@@ -2,7 +2,7 @@
 
 namespace stitchua\tpay\controllers;
 
-use stitchua\components\basics\BasicNotificationHandler;
+use stitchua\tpay\components\basics\BasicNotificationHandler;
 use yii\web\Controller;
 
 /**
