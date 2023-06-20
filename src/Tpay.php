@@ -30,6 +30,6 @@ class Tpay extends \yii\base\Module
         if(empty($this->merchantId) || empty($this->merchantCode)){
             throw new InvalidConfigException('Zła konfiguracja modułu: '.$this->id);
         }
-        Util::$customLogPatch = __FILE__.DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
+        Util::$customLogPatch = dirname(__FILE__).DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
     }
 }
