@@ -1,5 +1,5 @@
 <?php
-namespace stitchua\components\basics;
+namespace stitchua\tpay\components\basics;
 
 use Exception;
 use stitchua\tpay\base\ILinkPayload;

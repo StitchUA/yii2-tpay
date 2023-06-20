@@ -1,5 +1,5 @@
 <?php
-namespace stitchua\models;
+namespace stitchua\tpay\models;
 
 use stitchua\tpay\base\ILinkPayload;
 use stitchua\tpay\Tpay;

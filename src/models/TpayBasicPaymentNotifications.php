@@ -1,6 +1,6 @@
 <?php
 
-namespace stitchua\models;
+namespace stitchua\tpay\models;
 
 use Yii;
 

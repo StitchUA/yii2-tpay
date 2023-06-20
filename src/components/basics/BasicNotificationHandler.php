@@ -1,9 +1,9 @@
 <?php
 
-namespace stitchua\components\basics;
+namespace stitchua\tpay\components\basics;
 
-use stitchua\models\TpayBasicPaymentNotifications;
-use stitchua\models\TpayNoApiPayload;
+use stitchua\tpay\models\TpayBasicPaymentNotifications;
+use stitchua\tpay\models\TpayNoApiPayload;
 use stitchua\tpay\Tpay;
 
 class BasicNotificationHandler extends \tpayLibs\src\_class_tpay\Notifications\BasicNotificationHandler
