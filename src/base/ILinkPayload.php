@@ -38,6 +38,12 @@ interface ILinkPayload
     public function getCrc(): string;
 
     /**
+     * Data for generating crc
+     * @return array
+     */
+    public function getCrcData(): array;
+
+    /**
      * The checksum used to verify the parameters received from the merchant.
      * When seller's verification code is not set, its value is assumed to be an empty string.
      * <br><b>Mandatory parameter!</b><br>
@@ -63,7 +69,7 @@ interface ILinkPayload
      * Bank group number selected by customer on seller's website.
      * @return int
      */
-    public function getGroup(): int;
+    public function getGroup(): ?int;
 
     /**
      * The URL address to which the transaction result will be sent via POST method.

@@ -61,16 +61,19 @@ class IntegrationWithoutAPI extends \yii\base\Model
         if(empty($payload->return_url)){
             $payload->return_url = Url::to(['basic-payment/ipn']);
         }
+
         if($payload->save()){
-            if(empty($payload->crc)) {
-                $payload->crc = md5(
-                    (float)$payload->amount
-                    . $payload->id
-                    . $this->module->tpayTransactionCrcSalt
-                );
+            $crcData = $payload->getcrcData();
+            if(empty($payload->crc) && !empty($crcData)) {
+                $crcData[] = (float)$payload->amount;
+                $crcData[] = $payload->fld_id;
+                $crcData[] = $this->module->tpayTransactionCrcSalt;
+                $payload->crc = md5(implode('', $crcData));
+            } else {
+                $payload->crc = '';
             }
             $payload->md5sum = md5(implode('&', [
-                $payload->merchant_id,
+                $payload->id,
                 $payload->amount,
                 $payload->crc,
                 $this->module->merchantCode
