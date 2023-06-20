@@ -28,7 +28,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
     {
         $this->module = $module;
         parent::__construct($config);
-        if(empty($this->merchantId) || empty($this->merchantCode)){
+        if(empty($this->module->merchantId) || empty($this->module->merchantCode)){
             throw new InvalidConfigException('Brak wymaganych ustawień.');
         }
     }
