@@ -2,6 +2,7 @@
 
 namespace stitchua\tpay;
 
+use tpayLibs\src\_class_tpay\Utilities\Util;
 use yii\base\InvalidConfigException;
 
 /**
@@ -29,5 +30,6 @@ class Tpay extends \yii\base\Module
         if(empty($this->merchantId) || empty($this->merchantCode)){
             throw new InvalidConfigException('Zła konfiguracja modułu: '.$this->id);
         }
+        Util::$customLogPatch = __FILE__.DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
     }
 }
