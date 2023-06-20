@@ -3,6 +3,7 @@ namespace stitchua\tpay\components\basics;
 
 use Exception;
 use stitchua\tpay\base\ILinkPayload;
+use stitchua\tpay\models\TpayNoApiPayload;
 use stitchua\tpay\Tpay;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -57,7 +58,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
     public function getPaymentLink(ILinkPayload $linkPayload): string
     {
         $link = '';
-        $payload = new \stitchua\models\TpayNoApiPayload($this->module, $linkPayload);
+        $payload = new TpayNoApiPayload($this->module, $linkPayload);
         if(empty($payload->return_url)){
             $payload->return_url = Url::to(['basic-payment/ipn']);
         }
