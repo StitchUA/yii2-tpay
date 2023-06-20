@@ -61,8 +61,8 @@ class IntegrationWithoutAPI extends \yii\base\Model
     {
         $link = '';
         $payload = new TpayNoApiPayload($this->module, $linkPayload);
-        if (empty($payload->return_url)) {
-            $payload->return_url = Yii::$app->urlManager->createAbsoluteUrl(["/{$this->module->id}/basic-payment/ipn"]);
+        if (empty($payload->result_url)) {
+            $payload->result_url = Yii::$app->urlManager->createAbsoluteUrl(["/{$this->module->id}/basic-payment/ipn"]);
         }
 
         if ($payload->save()) {
