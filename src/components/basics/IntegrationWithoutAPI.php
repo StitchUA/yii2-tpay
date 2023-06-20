@@ -1,4 +1,5 @@
 <?php
+
 namespace stitchua\tpay\components\basics;
 
 use Exception;
@@ -29,7 +30,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
     {
         $this->module = $module;
         parent::__construct($config);
-        if(empty($this->module->merchantId) || empty($this->module->merchantCode)){
+        if (empty($this->module->merchantId) || empty($this->module->merchantCode)) {
             throw new InvalidConfigException('Brak wymaganych ustawień.');
         }
     }
@@ -39,6 +40,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
     public static $languagies = [
         self::LANG_PL, self::LANG_EN
     ];
+
     public function rules()
     {
         return [
@@ -59,13 +61,13 @@ class IntegrationWithoutAPI extends \yii\base\Model
     {
         $link = '';
         $payload = new TpayNoApiPayload($this->module, $linkPayload);
-        if(empty($payload->return_url)){
+        if (empty($payload->return_url)) {
             $payload->return_url = Yii::$app->urlManager->createAbsoluteUrl(["/{$this->module->id}/basic-payment/ipn"]);
         }
 
-        if($payload->save()){
+        if ($payload->save()) {
             $crcData = $payload->crcData;
-            if(empty($payload->crc) && !empty($crcData)) {
+            if (empty($payload->crc) && !empty($crcData)) {
                 $crcData[] = (float)$payload->amount;
                 $crcData[] = $payload->fld_id;
                 $crcData[] = $this->module->tpayTransactionCrcSalt;
@@ -80,7 +82,12 @@ class IntegrationWithoutAPI extends \yii\base\Model
                 $this->module->merchantCode
             ]));
             $payload->updateAttributes(['crc', 'md5sum']);
-            $link = Html::a('text', ArrayHelper::merge([$this->panelURL], $payload->attributes));
+            $link = $this->panelURL . DIRECTORY_SEPARATOR . http_build_query(array_filter($payload->attributes,
+                        function ($val){
+                            return !empty($val);
+                        }
+                    )
+                );
         } else {
             Yii::error([
                 'MSG' => 'Tpay[Integration without API] error',
