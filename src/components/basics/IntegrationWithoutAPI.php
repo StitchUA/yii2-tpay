@@ -59,11 +59,11 @@ class IntegrationWithoutAPI extends \yii\base\Model
 
     /**
      * @param ILinkPayload $linkPayload
-     * @param TpayNoApiPayload $payload
+     * @param TpayNoApiPayload|null $payload
      * @return string
      * @throws Exception
      */
-    public function getPaymentLink(ILinkPayload $linkPayload, TpayNoApiPayload &$payload): string
+    public function getPaymentLink(ILinkPayload $linkPayload, ?TpayNoApiPayload &$payload): string
     {
         $link = '';
         $payload = new TpayNoApiPayload($this->module, $linkPayload);
