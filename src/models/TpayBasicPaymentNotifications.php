@@ -21,7 +21,9 @@ use Yii;
  * @property string|null $md5sum The checksum used to verify the parameters sent to the merchant. This checksum should always be verified on the merchant's side and data discarded in case of conflict.     When seller's verification code is not set, its value is assumed to be an empty string. 
  * @property string|null $test_mode Parameter informs if a transaction was created in test or normal mode: "1" – test transaction "0" – normal transaction 
  * @property string|null $wallet This parameter present only when payment was made by MasterPass channel Contains value: "masterpass" 
- * @property string|null $masterpass This parameter present only when payment was made by MasterPass channel Contains value: "1" 
+ * @property string|null $masterpass This parameter present only when payment was made by MasterPass channel Contains value: "1"
+ *
+ * @property TpayNoApiPayload|null $payload
  */
 class TpayBasicPaymentNotifications extends \yii\db\ActiveRecord
 {
@@ -76,5 +78,10 @@ Contains value: \"masterpass\" '),
             'masterpass' => Yii::t('partner_activity', 'This parameter present only when payment was made by MasterPass channel
 Contains value: \"1\" '),
         ];
+    }
+
+    public function getPayload()
+    {
+        return $this->hasOne(TpayNoApiPayload::class, ['crc' => 'tr_crc']);
     }
 }
