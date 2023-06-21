@@ -84,7 +84,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
             $payload->updateAttributes(['crc', 'md5sum']);
             $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payload->attributes,
                         function ($val){
-                            return !(is_null($val) || $val === '');
+                            return !empty($val);
                         }
                     )
                 );
