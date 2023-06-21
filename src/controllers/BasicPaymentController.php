@@ -20,7 +20,6 @@ class BasicPaymentController extends Controller
         $module = Yii::$app->getModule('tpay');
         $notification = (new BasicNotificationHandler($module))->getTpayNotification();
         $payloadCrc = $notification['tr_crc'];
-
-        return $this->render('index');
+        Yii::$app->end();
     }
 }

@@ -37,6 +37,8 @@ use Yii;
 class TpayNoApiPayload extends \yii\db\ActiveRecord
 {
 
+    /** @var string Triggered when Tpay notify about success transaction */
+    public const EVENT_PAID = 'payload_paid';
     public $crcData = [];
     protected $module;
     public function __construct(Tpay $module, ?ILinkPayload $payload, $config = [])
