@@ -40,11 +40,8 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
     /** @var string Triggered when Tpay notify about success transaction */
     public const EVENT_PAID = 'payload_paid';
     public $crcData = [];
-    protected $module;
-    public function __construct(Tpay $module, ?ILinkPayload $payload, $config = [])
+    public function __construct(?ILinkPayload $payload, $config = [])
     {
-        $this->module = $module;
-
         if($payload){
             $this->id = $payload->getId();
             $this->amount = $payload->getAmount();

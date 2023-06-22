@@ -66,7 +66,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
     public function getPaymentLink(ILinkPayload $linkPayload, ?TpayNoApiPayload &$payload): string
     {
         $link = '';
-        $payload = new TpayNoApiPayload($this->module, $linkPayload);
+        $payload = new TpayNoApiPayload($linkPayload);
         if (empty($payload->result_url)) {
             $payload->result_url = Yii::$app->urlManager->createAbsoluteUrl(["/{$this->module->id}/basic-payment/ipn"]);
         }
