@@ -21,6 +21,11 @@ class Tpay extends \yii\base\Module
     public $tpayTransactionCrcSalt = 'zsdfasdf78asf6asd8f87';
 
     /**
+     * @var bool Disable validation of Tpay IPs servers
+     */
+    public $validateServerIP = true;
+
+    /**
      * {@inheritdoc}
      */
     public function init()
@@ -28,9 +33,10 @@ class Tpay extends \yii\base\Module
         parent::init();
 
         if(empty($this->merchantId) || empty($this->merchantCode)){
-            throw new InvalidConfigException('Zła konfiguracja modułu: '.$this->id);
+            throw new InvalidConfigException('Invalid configuration of module: '.$this->id);
         }
         Util::$customLogPatch = dirname(__FILE__).DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
         Util::$loggingEnabled = false;
+        $this->validateServerIP = (bool)$this->validateServerIP;
     }
 }

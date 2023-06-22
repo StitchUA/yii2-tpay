@@ -15,6 +15,7 @@ class BasicNotificationHandler extends \tpayLibs\src\_class_tpay\Notifications\B
         $this->module = $module;
         $this->merchantId = $module->merchantId;
         $this->merchantSecret = $module->merchantCode;
+        $this->validateServerIP = $module->validateServerIP;
         parent::__construct();
     }
 
