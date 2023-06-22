@@ -30,6 +30,7 @@ class BasicNotificationHandler extends \tpayLibs\src\_class_tpay\Notifications\B
             if(!$notification){
                 $newNotification = new TpayBasicPaymentNotifications();
                 $newNotification->setAttributes($notificationData);
+                $newNotification->typecastAttributes();
                 if($newNotification->save()){
                     $payload->trigger(TpayNoApiPayload::EVENT_PAID,
                         new TpayNoApiPayloadEvent($notification)
