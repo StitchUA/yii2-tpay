@@ -25,8 +25,7 @@ class BasicPaymentController extends Controller
     public function actionIpn()
     {
         $module = Yii::$app->getModule('tpay');
-        $notification = (new BasicNotificationHandler($module))->getTpayNotification();
-        $payloadCrc = $notification['tr_crc'];
+        (new BasicNotificationHandler($module))->getTpayNotification();
         Yii::$app->end();
     }
 }
