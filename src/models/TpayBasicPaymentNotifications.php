@@ -3,6 +3,7 @@
 namespace stitchua\tpay\models;
 
 use Yii;
+use yii\behaviors\AttributeTypecastBehavior;
 
 /**
  * This is the model class for table "tbl_tpay_basic_payment_notifications".
@@ -33,6 +34,21 @@ class TpayBasicPaymentNotifications extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return '{{%tpay_basic_payment_notifications}}';
+    }
+
+    public function behaviors()
+    {
+        return [
+            'typecast' => [
+                'class' => AttributeTypecastBehavior::class,
+//                'attributeTypes' => [
+//                    'fld_active' => AttributeTypecastBehavior::TYPE_INTEGER,
+//                ],
+                'typecastAfterValidate' => true,
+                'typecastBeforeSave' => true,
+                'typecastAfterFind' => true,
+            ],
+        ];
     }
 
     /**
