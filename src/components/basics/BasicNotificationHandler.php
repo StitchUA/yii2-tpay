@@ -33,13 +33,13 @@ class BasicNotificationHandler extends \tpayLibs\src\_class_tpay\Notifications\B
                 $newNotification->typecastAttributes();
                 if($newNotification->save()){
                     $payload->trigger(TpayNoApiPayload::EVENT_PAID,
-                        new TpayNoApiPayloadEvent($notification)
+                        new TpayNoApiPayloadEvent($newNotification)
                     );
                 } else {
                     Yii::error([
                         'MSG' => 'Errors during saving Tpay notification w CRC: '.$payloadCrc,
-                        '$payload' => $payload,
-                        '$newNotification' => $newNotification,
+                        '$payload' => $payload->attributes,
+                        '$newNotification' => $newNotification->attributes,
                         '$_POST' => $_POST
                     ], 'tpay');
                 }
