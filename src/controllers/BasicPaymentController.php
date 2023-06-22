@@ -11,6 +11,13 @@ use yii\web\Controller;
  */
 class BasicPaymentController extends Controller
 {
+    public function beforeAction($action)
+    {
+        if($action->id === 'ipn'){
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
     /**
      * Renders the index view for the module
      * @return string
