@@ -13,7 +13,7 @@ Zalecany sposób instalacji przez [composer](http://getcomposer.org/download/)
 Możesz uruchomić
 
 ```
-php composer.phar require --prefer-dist ststichua/yii2-tpay
+php composer.phar require --prefer-dist ststichua/yii2-tpay 
 ```
 
 lub dodać
