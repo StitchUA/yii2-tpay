@@ -4,11 +4,13 @@ namespace stitchua\tpay\models;
 use stitchua\tpay\base\ILinkPayload;
 use stitchua\tpay\Tpay;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tbl_tpay_no_api_payload".
  *
  * @property int $fld_id
+ * @property int $entity_id Entity which was paid for
  * @property int|null $id Merchant ID
  * @property float|null $amount
  * @property string|null $description
@@ -33,6 +35,8 @@ use Yii;
  * @property int|null $accept_tos
  * @property string|null $expiration_date
  * @property string|null $timehash
+ *
+ * @property ActiveRecord $entity The entity which was paid for. Make sense if attribute $entity_id is set to fully qualified class name.
  */
 class TpayNoApiPayload extends \yii\db\ActiveRecord
 {
@@ -40,9 +44,16 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
     /** @var string Triggered when Tpay notify about success transaction */
     public const EVENT_PAID = 'payload_paid';
     public $crcData = [];
+
+    /**
+     * @var string Primary key name of entity_id object which was paid for
+     */
+    public $pk_name = 'fld_id';
+
     public function __construct(?ILinkPayload $payload = null, $config = [])
     {
         if($payload){
+            $this->entity_id = $payload->getEntityId();
             $this->id = $payload->getId();
             $this->amount = $payload->getAmount();
             $this->description = $payload->getDescription();
@@ -97,6 +108,7 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
             [['zip'], 'string', 'max' => 10],
             [['country'], 'string', 'max' => 3],
             [['phone'], 'string', 'max' => 16],
+            [['entity_id'], 'string'],
         ];
     }
 
@@ -106,31 +118,40 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('partner_activity', 'ID'),
-            'merchant_id' => Yii::t('partner_activity', 'Merchant ID'),
-            'amount' => Yii::t('partner_activity', 'Amount'),
-            'description' => Yii::t('partner_activity', 'Description'),
-            'crc' => Yii::t('partner_activity', 'Crc'),
-            'md5sum' => Yii::t('partner_activity', 'Md5sum'),
-            'online' => Yii::t('partner_activity', 'Online'),
-            'group' => Yii::t('partner_activity', 'Group'),
-            'result_url' => Yii::t('partner_activity', 'Result Url'),
-            'result_email' => Yii::t('partner_activity', 'Result Email'),
-            'merchant_description' => Yii::t('partner_activity', 'Merchant Description'),
-            'custom_description' => Yii::t('partner_activity', 'Custom Description'),
-            'return_url' => Yii::t('partner_activity', 'Return Url'),
-            'return_error_url' => Yii::t('partner_activity', 'Return Error Url'),
-            'language' => Yii::t('partner_activity', 'Language'),
-            'email' => Yii::t('partner_activity', 'Email'),
-            'name' => Yii::t('partner_activity', 'Name'),
-            'address' => Yii::t('partner_activity', 'Address'),
-            'city' => Yii::t('partner_activity', 'City'),
-            'zip' => Yii::t('partner_activity', 'Zip'),
-            'country' => Yii::t('partner_activity', 'Country'),
-            'phone' => Yii::t('partner_activity', 'Phone'),
-            'accept_tos' => Yii::t('partner_activity', 'Accept Tos'),
-            'expiration_date' => Yii::t('partner_activity', 'Expiration Date'),
-            'timehash' => Yii::t('partner_activity', 'Timehash'),
+            'entity_id' => Yii::t('yii2_tpay', 'Entity ID'),
+            'id' => Yii::t('yii2_tpay', 'ID'),
+            'merchant_id' => Yii::t('yii2_tpay', 'Merchant ID'),
+            'amount' => Yii::t('yii2_tpay', 'Amount'),
+            'description' => Yii::t('yii2_tpay', 'Description'),
+            'crc' => Yii::t('yii2_tpay', 'Crc'),
+            'md5sum' => Yii::t('yii2_tpay', 'Md5sum'),
+            'online' => Yii::t('yii2_tpay', 'Online'),
+            'group' => Yii::t('yii2_tpay', 'Group'),
+            'result_url' => Yii::t('yii2_tpay', 'Result Url'),
+            'result_email' => Yii::t('yii2_tpay', 'Result Email'),
+            'merchant_description' => Yii::t('yii2_tpay', 'Merchant Description'),
+            'custom_description' => Yii::t('yii2_tpay', 'Custom Description'),
+            'return_url' => Yii::t('yii2_tpay', 'Return Url'),
+            'return_error_url' => Yii::t('yii2_tpay', 'Return Error Url'),
+            'language' => Yii::t('yii2_tpay', 'Language'),
+            'email' => Yii::t('yii2_tpay', 'Email'),
+            'name' => Yii::t('yii2_tpay', 'Name'),
+            'address' => Yii::t('yii2_tpay', 'Address'),
+            'city' => Yii::t('yii2_tpay', 'City'),
+            'zip' => Yii::t('yii2_tpay', 'Zip'),
+            'country' => Yii::t('yii2_tpay', 'Country'),
+            'phone' => Yii::t('yii2_tpay', 'Phone'),
+            'accept_tos' => Yii::t('yii2_tpay', 'Accept Tos'),
+            'expiration_date' => Yii::t('yii2_tpay', 'Expiration Date'),
+            'timehash' => Yii::t('yii2_tpay', 'Timehash'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEntity()
+    {
+        return $this->hasOne($this->entity_id, [$this->pk_name => 'entity_id']);
     }
 }
