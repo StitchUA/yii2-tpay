@@ -5,6 +5,13 @@ namespace stitchua\tpay\base;
 interface ILinkPayload
 {
     /**
+     * Entity which was paid for
+     * Mandatory parameter!
+     * @return string
+     */
+    public function getEntityId(): string;
+
+    /**
      * Numeric identifier assigned to the merchant during the registration.
      * Mandatory parameter!
      * @return int

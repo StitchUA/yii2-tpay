@@ -35,7 +35,7 @@ class Tpay extends \yii\base\Module
         if(empty($this->merchantId) || empty($this->merchantCode)){
             throw new InvalidConfigException('Invalid configuration of module: '.$this->id);
         }
-        Util::$customLogPatch = dirname(__FILE__).DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
+        Util::$customLogPatch = __DIR__ .DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR;
         Util::$loggingEnabled = false;
         $this->validateServerIP = (bool)$this->validateServerIP;
     }
