@@ -48,7 +48,7 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
     /**
      * @var string Primary key name of entity_id object which was paid for
      */
-    public $pk_name = 'fld_id';
+    public $crc_name = 'fld_payment_crc';
 
     public function __construct(?ILinkPayload $payload = null, $config = [])
     {
@@ -152,6 +152,6 @@ class TpayNoApiPayload extends \yii\db\ActiveRecord
      */
     public function getEntity()
     {
-        return $this->hasOne($this->entity_id, [$this->pk_name => 'entity_id']);
+        return $this->hasOne($this->entity_id, [$this->crc_name => 'crc']);
     }
 }
