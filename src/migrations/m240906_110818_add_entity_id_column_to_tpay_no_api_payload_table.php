@@ -1,7 +1,5 @@
 <?php
 
-namespace stitchua\tpay\migrations;
-
 use yii\db\Migration;
 
 /**
