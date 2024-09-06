@@ -6,14 +6,16 @@
         "stitchua",
         "yii2",
         "extension",
-        "yii2-tpay",
         "payment",
         "yii2 tpay",
+        "yii2 payment system",
         "tpay",
         "payment system tpay"
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "php": ">=7.4.0",
+        "yiisoft/yii2": "*",
+        "tpay-com/tpay-php": "v2.3.4"
     },
     "license": "BSD-3-Clause",
     "autoload": {
