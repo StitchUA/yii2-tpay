@@ -2,6 +2,8 @@
 
 namespace stitchua\tpay\base;
 
+use stitchua\tpay\Tpay;
+
 interface ILinkPayload
 {
     /**
@@ -222,4 +224,34 @@ interface ILinkPayload
      */
     public function getTimehash(): string;
 
+    /**
+     * Date formatted as: YYYY:MM:DD:HH:MM (for Warsaw time GMT+1)
+     * @param string|null $expirationDate
+     */
+    public function setExpirationDate(?string $expirationDate): void;
+
+    /**
+     * Absolute URL to the success page. The user will be redirected by Tpay after making a payment.
+     * @param string $successPage
+     */
+    public function setReturnUrl(string $successPage): void;
+
+    /**
+     * Absolute URL to the error page.
+     * The user will be redirected by Tpay if an error occurs during the payment.
+     * @param string $errorPage
+     */
+    public function setReturnErrorUrl(string $errorPage): void;
+
+    /**
+     * Absolute URL to the page where the data will be sent by Tpay. The user will be redirected by Tpay after making a payment.
+     * @param string $resultUrl
+     */
+    public function setResultUrl(string $resultUrl): void;
+
+    /**
+     * Get Tpay module. The module which contains all the settings of merchant.
+     * @return Tpay
+     */
+    public function getModule(): Tpay;
 }
