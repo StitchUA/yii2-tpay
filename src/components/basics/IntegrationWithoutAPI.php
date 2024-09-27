@@ -27,9 +27,31 @@ class IntegrationWithoutAPI extends \yii\base\Model
     private $module;
 
     private $tpayNoApiParamsNames = [
-        'id', 'amount', 'description', 'group', 'resultUrl', 'resultEmail', 'returnUrl', 'returnErrorUrl',
-        'email', 'name', 'address', 'city', 'zip', 'country', 'phone', 'language', 'timehash', 'crc',
-        'customDescription', 'merchantDescription'
+        'id', // Numeric identifier assigned to the merchant during the registration.
+        'amount', // Transaction amount with dot as decimal separator.
+        'description', // Transaction description
+        'crc', // Auxiliary parameter to identify the transaction on the merchant side.
+        'md5sum', // The checksum used to verify the parameters received from the merchant.
+        'online', // Allow online payments only.
+        'group', // Bank group number selected by customer on seller's website.
+        'result_url', // The URL address to which the transaction result will be sent via POST method.
+        'result_email', // Tpay system will send notifications about transactions to this email.
+        'merchant_description', // Description of the seller during the transaction.
+        'custom_description', // Optional field used for card transactions made via Acquirer (Elavon).
+        'return_url', // The URL to which the client will be redirected after the correct transaction processing.
+        'return_error_url', // The URL to which the client will be redirected in case transaction error occurs.
+        'language', // Customer language.
+        'email', // Customer email.
+        'name', // Customer name.
+        'address', // Customer address.
+        'city', // Customer city.
+        'zip', // Customer postal code.
+        'country', // Customer country.
+        'tax_id', // Customer tax identification number.
+        'phone', // Customer telephone number.
+        'accept_tos', // Customer acceptance of tpay.com rules.
+        'expiration_date', // Maximum transaction payment date.
+        'timehash' // Parameter protects expiration_date from unauthorized changes.
     ];
 
     public function __construct(Tpay $module, $config = [])
