@@ -26,6 +26,12 @@ class IntegrationWithoutAPI extends \yii\base\Model
      */
     private $module;
 
+    private $tpayNoApiParamsNames = [
+        'id', 'amount', 'description', 'group', 'resultUrl', 'resultEmail', 'returnUrl', 'returnErrorUrl',
+        'email', 'name', 'address', 'city', 'zip', 'country', 'phone', 'language', 'timehash', 'crc',
+        'customDescription', 'merchantDescription'
+    ];
+
     public function __construct(Tpay $module, $config = [])
     {
         $this->module = $module;
@@ -88,7 +94,8 @@ class IntegrationWithoutAPI extends \yii\base\Model
                 $this->module->merchantCode
             ]));
             $payload->updateAttributes(['crc', 'md5sum']);
-            $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payload->attributes,
+            $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
+            $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payloadParams,
                         function ($val){
                             return !empty($val);
                         }
