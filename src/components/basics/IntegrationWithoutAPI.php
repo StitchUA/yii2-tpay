@@ -130,6 +130,12 @@ class IntegrationWithoutAPI extends \yii\base\Model
 
             $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
+            Yii::debug([
+                'MSG' => 'Tpay[Integration without API] params',
+                'Payload' => $payloadParams,
+                '$payload->attributes' => $payload->attributes
+            ], 'tpay');
+
             $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payloadParams,
                         function ($val){
                             return !empty($val);
