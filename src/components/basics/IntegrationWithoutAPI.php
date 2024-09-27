@@ -76,12 +76,20 @@ class IntegrationWithoutAPI extends \yii\base\Model
             [['id', 'amount', 'group'], 'numeric'],
             [['description', 'crc'], 'string', 'max' => 128],
             [['resultUrl', 'resultEmail', 'returnUrl', 'returnErrorUrl'], 'string', 'max' => 512],
-            [['email', 'name', 'address', 'merchantDescription'], 'string', 'max' => 64],
-            [['city', 'timehash', 'customDescription'], 'string', 'max' => 32],
+            [['email', 'name', 'address', 'city', 'merchantDescription','merchant_description'], 'string', 'max' => 64],
+            [['city', 'timehash', 'customDescription', 'md5sum', 'custom_description'], 'string', 'max' => 32],
             [['phone'], 'string', 'max' => 16],
             [['zip'], 'string', 'max' => 10],
             [['country'], 'string', 'min' => 2, 'max' => 3],
             [['language'], 'in', 'range' => self::$languagies],
+            ['language', 'string', 'max' => 2],
+            [['online', 'accept_tos'], 'in', 'range' => [0, 1]],
+            ['tax_id', 'string', 'min' => 3, 'max' => 20],
+            ['entity_id', 'string'],
+            ['result_email', 'email'],
+            [['return_url', 'return_error_url'], 'string', 'max' => 512],
+            ['expiration_date', 'date', 'format' => 'php:Y-m-d H:i:s'],
+            ['entity_id', 'string'],
         ];
     }
 
