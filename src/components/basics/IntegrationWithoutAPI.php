@@ -87,14 +87,14 @@ class IntegrationWithoutAPI extends \yii\base\Model
             } else {
                 $payload->crc = '';
             }
-            $payload->md5sum = md5(implode('&', [
-                $payload->id,
-                $payload->amount,
-                $payload->crc,
-                $this->module->merchantCode
-            ]));
-            $payload->updateAttributes(['crc', 'md5sum']);
             $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
+
+            $paramVals = array_values($payloadParams);
+            $paramVals[] = $this->module->merchantCode;
+            $payload->md5sum = md5(implode('&', $paramVals));
+
+            $payload->updateAttributes(['crc', 'md5sum']);
+
             $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payloadParams,
                         function ($val){
                             return !empty($val);
