@@ -111,7 +111,6 @@ class IntegrationWithoutAPI extends \yii\base\Model
                 }
             }
 
-            $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
             $payload->md5sum = md5(implode('&', [
                 $payload->id,
@@ -120,6 +119,8 @@ class IntegrationWithoutAPI extends \yii\base\Model
                 $this->module->merchantCode
             ]));
             $payload->updateAttributes(['crc', 'md5sum']);
+
+            $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
             $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payloadParams,
                         function ($val){
