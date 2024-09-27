@@ -79,14 +79,16 @@ class IntegrationWithoutAPI extends \yii\base\Model
 
         if ($payload->save()) {
             $crcData = $payload->crcData;
-            if (empty($payload->crc) && !empty($crcData)) {
-                $crcData[] = (float)$payload->amount;
-                $crcData[] = $payload->fld_id;
-                $crcData[] = $this->module->tpayTransactionCrcSalt;
-                $payload->crc = md5(implode('', $crcData));
-            } else {
+            if(empty($payload->crc)) {
                 $payload->crc = '';
+                if(!empty($crcData)) {
+                    $crcData[] = (float)$payload->amount;
+                    $crcData[] = $payload->fld_id;
+                    $crcData[] = $this->module->tpayTransactionCrcSalt;
+                    $payload->crc = md5(implode('', $crcData));
+                }
             }
+
             $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
             $payload->md5sum = md5(implode('&', [
