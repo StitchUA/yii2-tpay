@@ -128,7 +128,27 @@ class IntegrationWithoutAPI extends \yii\base\Model
             ]));
             $payload->updateAttributes(['crc' => $payload->crc, 'md5sum' => $payload->md5sum]);
 
-            $link = $this->getLink($payload);
+            $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
+
+            Yii::debug([
+                'MSG' => 'Tpay[Integration without API] params',
+                'Payload' => $payloadParams,
+                '$payload->attributes' => $payload->attributes
+            ], 'tpay');
+
+            $link = $this->panelURL . DIRECTORY_SEPARATOR . '?' . http_build_query(array_filter($payloadParams,
+                        static function ($val) {
+                            return !empty($val);
+                        }
+                    )
+                );
+
+            Yii::debug([
+                'MSG' => 'Tpay[Integration without API] generated link',
+                'Link' => $link,
+                'Payload' => $payloadParams,
+                '$payload->attributes' => $payload->attributes
+            ], 'tpay');
         } else {
             Yii::error([
                 'MSG' => 'Tpay[Integration without API] error',
