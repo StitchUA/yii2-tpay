@@ -126,7 +126,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
                 $payload->crc,
                 $this->module->merchantCode
             ]));
-            $payload->updateAttributes(['crc', 'md5sum']);
+            $payload->updateAttributes(['crc' => $payload->crc, 'md5sum' => $payload->md5sum]);
 
             $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
@@ -142,6 +142,13 @@ class IntegrationWithoutAPI extends \yii\base\Model
                         }
                     )
                 );
+
+            Yii::debug([
+                'MSG' => 'Tpay[Integration without API] generated link',
+                'Link' => $link,
+                'Payload' => $payloadParams,
+                '$payload->attributes' => $payload->attributes
+            ], 'tpay');
         } else {
             Yii::error([
                 'MSG' => 'Tpay[Integration without API] error',
