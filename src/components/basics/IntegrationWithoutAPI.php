@@ -152,7 +152,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
      */
     public function getLink(TpayNoApiPayload $payload): string
     {
-        $payload->amount = (float)number_format($payload->amount, 2, '.', '');
+        $payload->amount = (float)$payload->amount;
         $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
         Yii::debug([
