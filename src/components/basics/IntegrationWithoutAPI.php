@@ -128,27 +128,7 @@ class IntegrationWithoutAPI extends \yii\base\Model
             ]));
             $payload->updateAttributes(['crc' => $payload->crc, 'md5sum' => $payload->md5sum]);
 
-            $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
-
-            Yii::debug([
-                'MSG' => 'Tpay[Integration without API] params',
-                'Payload' => $payloadParams,
-                '$payload->attributes' => $payload->attributes
-            ], 'tpay');
-
-            $link = $this->panelURL . DIRECTORY_SEPARATOR .'?'. http_build_query(array_filter($payloadParams,
-                        function ($val){
-                            return !empty($val);
-                        }
-                    )
-                );
-
-            Yii::debug([
-                'MSG' => 'Tpay[Integration without API] generated link',
-                'Link' => $link,
-                'Payload' => $payloadParams,
-                '$payload->attributes' => $payload->attributes
-            ], 'tpay');
+            $link = $this->getLink($payload);
         } else {
             Yii::error([
                 'MSG' => 'Tpay[Integration without API] error',
@@ -159,5 +139,40 @@ class IntegrationWithoutAPI extends \yii\base\Model
 
         return $link;
 
+    }
+
+    /**
+     * You can use this method to generate a payment link from existing payload.
+     * It is useful when you want to generate a payment link from the existing payload,
+     * especially when you want to use the same payload for multiple payments.
+     * For example, your crcData consists seconds metrix, and you don't want to change it for each payment.
+     *
+     * @param TpayNoApiPayload $payload
+     * @return string
+     */
+    public function getLink(TpayNoApiPayload $payload): string
+    {
+        $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
+
+        Yii::debug([
+            'MSG' => 'Tpay[Integration without API] params',
+            'Payload' => $payloadParams,
+            '$payload->attributes' => $payload->attributes
+        ], 'tpay');
+
+        $link = $this->panelURL . DIRECTORY_SEPARATOR . '?' . http_build_query(array_filter($payloadParams,
+                    function ($val) {
+                        return !empty($val);
+                    }
+                )
+            );
+
+        Yii::debug([
+            'MSG' => 'Tpay[Integration without API] generated link',
+            'Link' => $link,
+            'Payload' => $payloadParams,
+            '$payload->attributes' => $payload->attributes
+        ], 'tpay');
+        return $link;
     }
 }
