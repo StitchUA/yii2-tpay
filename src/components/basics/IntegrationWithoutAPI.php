@@ -168,6 +168,9 @@ class IntegrationWithoutAPI extends \yii\base\Model
     public function getLink(TpayNoApiPayload $payload): string
     {
         $payload->amount = (float)$payload->amount;
+        if($payload->expiration_date){
+            $payload->expiration_date = date('Y:m:d:H:i', strtotime($payload->expiration_date));
+        }
         $payloadParams = array_intersect_key($payload->attributes, array_flip($this->tpayNoApiParamsNames));
 
         Yii::debug([
